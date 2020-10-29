@@ -14,4 +14,4 @@ EXPOSE 6800
 USER aria2
 ENV HOME /home/aria2
 
-CMD ["/usr/bin/aria2c","--conf-path=/home/aria2/aria2.conf","--rpc-secret=${rpc_secret}"]
+CMD ["/usr/bin/aria2c","--conf-path",["/home/aria2/aria2.conf","--rpc-secret","sh echo $rpc_secret"]
