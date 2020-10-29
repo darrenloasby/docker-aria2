@@ -1,7 +1,7 @@
 #Makefile for Docker container control
 
 # Include additional variables
-include /srv/aria2/a.mk
+include files/a.mk
 
 # Define container repo and runtime name
 CONTAINER_REPO = hobbsau/aria2
@@ -11,14 +11,14 @@ CONTAINER_RUN = aria2-service
 CONFIG_VOL = /home/aria2
 
 # This should point to the Docker host directory containing the config. The host directory must be owned by UID:GID 1000:1000. The format is '/host/directory:'
-CONFIG_BIND = /srv/aria2:
+CONFIG_BIND = aria2-config
 
 # URL for triggering a rebuild
 TRIGGER_URL = https://registry.hub.docker.com/u/hobbsau/aria2/trigger/26f5ecc6-8887-4f45-ba8a-c7d0fb9b27c1/
 
 # Trigger a remote initiated rebuild
 build:
-	echo "Rebuilding repository $(CONTAINER_REPO) ..."; 
+	echo "Rebuilding repository $(CONTAINER_REPO) ...";
 	@curl --data build=true -X POST $(TRIGGER_URL) 
 
 # Intantiate service continer and start it
@@ -31,9 +31,9 @@ run:
 		docker run -d \
  		--restart=always \
  		-p 6800:6800/tcp \
- 		-v $(CONFIG_BIND)$(CONFIG_VOL) \
- 		-v $(DATA_BIND_1)$(DATA_VOL_1) \
- 		-v $(DATA_BIND_2)$(DATA_VOL_2) \
+ 		-v $(CONFIG_BIND):$(CONFIG_VOL) \
+ 		-v $(DATA_BIND_1):$(DATA_VOL_1) \
+ 		-v $(DATA_BIND_2):$(DATA_VOL_2) \
  		--name $(CONTAINER_RUN) \
  		$(CONTAINER_REPO); \
 	else \
