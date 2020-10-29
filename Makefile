@@ -4,7 +4,7 @@
 include files/a.mk
 
 # Define container repo and runtime name
-CONTAINER_REPO = hobbsau/aria2
+CONTAINER_REPO = darrenloasby/aria2
 CONTAINER_RUN = aria2-service
 
 # Define the exportable volumes for the container
@@ -14,7 +14,7 @@ CONFIG_VOL = /home/aria2
 CONFIG_BIND = aria2-config
 
 # URL for triggering a rebuild
-TRIGGER_URL = https://registry.hub.docker.com/u/hobbsau/aria2/trigger/26f5ecc6-8887-4f45-ba8a-c7d0fb9b27c1/
+TRIGGER_URL = https://hub.docker.com/api/build/v1/source/9239cec7-daa2-48f5-85b0-104db6949d21/trigger/dafc956c-2057-4fa2-b85a-db493dbed702/call/
 
 # Trigger a remote initiated rebuild
 build:
