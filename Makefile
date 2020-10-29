@@ -34,6 +34,7 @@ run:
  		-v $(CONFIG_BIND):$(CONFIG_VOL) \
  		-v $(DATA_BIND_1):$(DATA_VOL_1) \
  		-v $(DATA_BIND_2):$(DATA_VOL_2) \
+		-e RPC_SECRET=$(RPC_SECRET) \
  		--name $(CONTAINER_RUN) \
  		$(CONTAINER_REPO); \
 	else \

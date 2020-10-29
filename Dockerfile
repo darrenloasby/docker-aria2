@@ -1,9 +1,6 @@
 FROM alpine:edge
 MAINTAINER Adrian Hobbs <adrianhobbs@gmail.com>
 ENV PACKAGE "aria2 bash curl tzdata"
-ARG RPC_SECRET
-ENV rpc_secret=$RPC_SECRET
-RUN echo $RPC_SECRET $rpc_secret
 # Install package using --no-cache to update index and remove unwanted files
 RUN apk add --no-cache $PACKAGE && \
 	cp /usr/share/zoneinfo/Australia/Sydney /etc/localtime && \
@@ -14,5 +11,5 @@ RUN apk add --no-cache $PACKAGE && \
 EXPOSE 6800
 USER aria2
 ENV HOME /home/aria2
-
-CMD ["/usr/bin/aria2c","--conf-path=/home/aria2/aria2.conf","--rpc-secret=`echo $rpc_secret`"]
+COPY files/aria2.conf /home/aria2/aria2.conf
+CMD ["/usr/bin/aria2c","--console-log-level=info","--enable-rpc","--rpc-listen-all","--conf-path=/home/aria2/aria2.conf","--rpc-secret=$RPC_SECRET"]
